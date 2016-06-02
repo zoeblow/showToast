@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+        <meta content="yes" name="apple-mobile-web-app-capable">
+        <meta content="black" name="apple-mobile-web-app-status-bar-style">
+        <meta content="telephone=no" name="format-detection">
+        <meta content="email=no" name="format-detection">
+        <title>showToast demo</title>
+        <link rel="stylesheet" type="text/css" href="../dist/style/showToast.css" />
+    </head>
+    <body>
+    <button>点击显示</button>
+
+    </body>
+    <script type="text/javascript" src="http://apps.bdimg.com/libs/zepto/1.1.4/zepto.min.js"></script>
+    <script type="text/javascript" src="../dist/script/showToast.js"></script>
+    <script type="text/javascript">
+    $(document).on('click', 'button', function(event) {
+        event.preventDefault();
+        showToast.show('这就是页面显示的文字喽',2000)
+    });
+    </script>
+</html>
