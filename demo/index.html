@@ -11,7 +11,11 @@
         <link rel="stylesheet" type="text/css" href="../dist/style/showToast.css" />
     </head>
     <body>
+    没有图标的  吐司
     <button>点击显示</button>
+    <br />
+    有图标的吐司
+    <a href="javascript:;">点击显示</a>
 
     </body>
     <script type="text/javascript" src="http://apps.bdimg.com/libs/zepto/1.1.4/zepto.min.js"></script>
@@ -19,7 +23,12 @@
     <script type="text/javascript">
     $(document).on('click', 'button', function(event) {
         event.preventDefault();
-        showToast.show('这就是页面显示的文字喽',2000)
+        showToast.show({text:'这就是页面显示的文字喽',timer:2000})
+    });
+
+    $(document).on('click', 'a', function(event) {
+        event.preventDefault();
+        showToastImg.show({text:'这就是有图标的喽这就是有图标的喽这就是有图标的喽这就是有图标的喽这就是有图标的喽',timer:2000,icon:'success'})
     });
     </script>
 </html>

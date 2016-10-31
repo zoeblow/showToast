@@ -11,50 +11,28 @@
 * V 1.1 更新 可以配置 时间 如果为空则默认为1500毫秒
 * 2016年6月21日17:26
 * V 1.2 针对IOS系统调整Toast出现位置 
+* ------
+* 2016年10月31日15:02
+* V1.3 增加显示toast 有小图标的功能 修改若干现实bug
 */
-.showToast{
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    z-index: 19891014;
+.showToast{ position: absolute; left: 0; top: 0; width: 100%; z-index: 19891014; }
+.showToastInner{ pointer-events: none; display: table; position:fixed; left:0; top:0; width:100%; height:100%; z-index: 1004; }
+.showToastTips{ display: table-cell; vertical-align: middle; text-align: center; position: absolute; top: 180px; width: 100%; }
+.showToastTips .showToastCon{ display: inline-block; position: relative; background-color:rgba(40,40,40,.75); background-color:#000\9; filter: alpha(opacity=80); color: #fff; font-size: 14px; border-radius: 6px; box-shadow: 0 0 8px rgba(0,0,0,.1); pointer-events: auto; animation-name:fieldTipBounceIn; -webkit-animation-name:fieldTipBounceIn; -webkit-animation-fill-mode: both; animation-fill-mode: both; -webkit-animation-duration: .18s; animation-duration: .18s; padding:15px; z-index: 8888; width: 20em; }
+.showMask { position: fixed; z-index: 1000; top: 0; right: 0; left: 0; bottom: 0; }
+.text{ display: inline-block; max-width: 17em; vertical-align: middle; }
+.icontest{ display:inline-block; width:24px; height:24px;  vertical-align: middle; margin-right: 10px; margin-top: -3px; }
+.icontest{background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAMAAADXqc3KAAAAkFBMVEUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADDIYgjAAAAMHRSTlMAvo3HFwgD0JNjWjIuEundy7qtnEo9DtTCs6iEe3hzX0Ub8+HZmWpVUEG1UzcpIyIJ2om+AAAA1ElEQVQoz4XQV67DIBAF0AvYBuPee2yn59X97y5KE8ZEyvmA0QUxYvAy550QdFOU0NluFteEEZHrMeWEysKb3Iyxo8rnKv62n3UwRK3zrH9DigWrJuWj2PXQJel9EwlWrDC/rXsfawMB/oYEBov7mDIKE5M4JhuYiAuZdu8P/K6FoeQX2Je9hbUTtwGHmd35vW8RetDR6jGtMfzR8n77+rIbjSr2m0i9kKXA7ADB/7ndpYG69TWiJ07ZxCwWy4Z5dWqiAvZ58hwsHbb1IcAbkkqVf3IFiu4Lao7dq+QAAAAASUVORK5CYII=);}
+.success{
+    background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAMAAADXqc3KAAAApVBMVEUAAAAZ+ygX/CYX/CYW/CUa+ygY/CcY/CgX/CcX/CcZ+ygZ+yga+ikZ+ygZ+ikZ+ikY/CcV/SUa+yka+ykY+ygZ+ykW/CYa+ikW/CYW/CYX/CYY+yca+ika+ikZ+ygZ+ygY+ygT/iMZ+igZ+ygT/iMZ/CgV/SUX/CYZ+ygW/CYW+yYU/iQa+ikY+ygY/CcZ+ygV/SQT/iIX/CYR/iEW/SUa+ikc+itvblEsAAAANXRSTlMAt5ppHbOsj3wF5d7SzMS9dQvr16Gfk4xGNDAV8+7JqYZ4cmNXTUE8JSIHAvavpl1USTkqD46rFo0AAAEBSURBVCjPZdCJcoJAEEXRq4KKLAH3JVGjUaNmT17//6cFx0xRmFMUM/V6qnsAb7YO06z5XlC3uZd6yaB8h0cqQaz2we0W+Yvyk88P1gvA69oHzNx5u6u1fS5oWAvoD7gxNiUwsfP/PDsRqUld09S4zBJ1I1ObICK+mfBmCplrhjrQmuK1L+dZqEX5PJqCqr+7uzrXgvWDKveFNTyZPRyBobtPKdKGfsq1EtExZThzfTERpZbZcizd+VGCH3Upfaq04o+GwKu5/dT3dx9dAGdrc5GHPv+23K17m9R/u6VcbdWgslOCt5e6C5zpUiMq0VDqNUartFx21BTbMInjrDP3wS/bKRwNWK4K/QAAAABJRU5ErkJggg==);
 }
-.showToastInner{
-    pointer-events: none;
-    display: table;
-    position:fixed;
-    left:0;
-    top:0;
-    width:100%;
-    height:100%;
+.busy{background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAMAAADXqc3KAAAAeFBMVEUAAAASInoTInoTInoQIHwTInoSIXoTInoSIXoSIXkSInoTInoTIXkSIXoSIXwSIXkRIXoQIHgRIXoTInoSInkSInoRIHgRIH0SIXgQIHgSIXkTIXkSIXoRIHkTIXoTIXoSIXkTInoRIX0TIHoQIHgQIHgSIXkTInp/B/iIAAAAJ3RSTlMAifHbEvaADsx84ccnwLysaEMV7dWjcVRQArCQYTzY1reCYSUiCJfEfk12AAAA20lEQVQoz3XS2W6DMBCF4R/bhC3s2cjSNkt73v8NiyxDFCS+29EM+MxAqlgLsVLAKs+iD1ku6wslC6Uv/OibhS+dgUjxlg/bWBHQ7tRA1yVe10GjXQu4i2p4SL0xvfSAsy4udN4gkhdBO8/OlDo4GskcwaXKwPstVDk4SSdwlcqBwBWyV8gtNFaFYzbsZRKsJTHaw3phOSqHqx+18vFqYP133w/cyNvALTyw+1MNBwUHqMdIphBfvYL+NYU4xv70DXPLc4x9WlQtE6j2i1pd7XQM983sHo5h7Xz+AbFEHqnfr/5yAAAAAElFTkSuQmCC);
 }
-.showToastTips{
-    display: table-cell;
-    vertical-align: middle;
-    text-align: center;
-    position: absolute;
-    top: 180px;
-    width: 100%;
+.fail{background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAMAAADXqc3KAAAAn1BMVEUAAADYHAXYHAXZHATYHAXXHgbYHQTaGQPYGwTaGgTaFwPYHgXYHgXYGwPZGwTZHQXZHQXaGgTZGgPXHgXaGwXaGwTXHgbYHATYHQXZGwXYHATXHQXZGQPZHQTZHAXZHATaGgTYGwXYHATXHQXZGwTbGAPaGALfEgHYHgbYHQXaGgTYHQXXHQTdFQLYGwTYHQTaGwTYHgfXHgXdFgPXHwZMmlv7AAAANHRSTlMApbKcg8OrKwwGA8a3Z2NPSkYTzqCXk459d2A9Ih6uqJRwbFk5Lw8K1b+4iUM0JBoW+14/9vY3pQAAAQBJREFUKM+tkEduwzAQRT8pqlm9997c7SS6/9kiChFkZxnkLcjPNzMYgPg7h94wTSNTf/tbpJPLhehB/+4TrXX5rZgee/UBHbfo6sLuG12F3RwAmBZU2mx+EHN0x5RH62Si8G4/hZABufwYAeX5lAEWcqvK0jEHEM01UM8xsIxU8gRWChIW2jkBYn4Akl/GkIScrJMPvvzObD59X5oZrSRgQ/nQljqhlGEaRHF1diD4Qhq1AERxmHgXcYCMEuOapUK1ZIcoWIlDuMQ4rPmLygiT7Rc0B1yvqHBEd3vYJ3nf32vW/vjU7C1aXocXrrpvFUDRlecMb4xGQM7Ur1MF/8439N0QRqkjvNoAAAAASUVORK5CYII=);
 }
-.showToastTips .showToastCon{
-    display: inline-block;
-    position: relative;
-    background-color:rgba(0,0,0,0.8);
-    background-color:#000\9;
-    filter: alpha(opacity=80);
-    color: #fff;
-    padding: 10px 15px;
-    font-size: 14px;
-    border-radius: 6px;
-    box-shadow: 0 0 8px rgba(0,0,0,.1);
-    pointer-events: auto;
-    animation-name:fieldTipBounceIn;
-    -webkit-animation-name:fieldTipBounceIn;
-    -webkit-animation-fill-mode: both;
-    animation-fill-mode: both;
-    -webkit-animation-duration: .18s;
-    animation-duration: .18s;
+.error{background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAMAAADXqc3KAAAAaVBMVEUAAADz6yn06in17Cj27Sj06in16ir06in06ir06in06in06yn06ir67ST06yj16yj06ir06ir06ijz6ir06ir06ir06irz6Sr06irz6iv06yr67STz6Sr06inz6irz6Srz6ir16yn06ipDkjnnAAAAInRSTlMADG5ZCR7uO9rSzCT6TT4E6t5HE/jvrquMiFtQNuLhr4RjBSX8vwAAAMxJREFUKM+FktmSgjAQRbVDFgLiAuIyOs6c///IMbQTpCi1H3Kr7qncdDpZfC7rjfF2Zi9NH5wLvSmm/lcA6hooV8/+EaJ4a71EOI7+CeQRUQiccg7sklZVWnfwSCu+keH863WZVAjD9vUvpTbWdQNYlJyTtD2iwDkFwqG9S7PlMgUXts1dzL62CkBBhTMTEOMIctTQxlrVa1R7QDLIhyc9/7e72eR2xwsqyBd8O5L5EH/mY28kqp9rVQJ1N30ojTC34PbhZopXn+Fj/QHXsg9KeNNRdwAAAABJRU5ErkJggg==);
 }
+
 @-webkit-keyframes fieldTipBounceIn{
   0% {
     opacity: 0;
