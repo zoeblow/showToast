@@ -12,23 +12,36 @@
     </head>
     <body>
     没有图标的  吐司
-    <button>点击显示</button>
+    <button class="button1">点击显示</button>
+    <br />
     <br />
     有图标的吐司
-    <a href="javascript:;">点击显示</a>
+    <br />
+    <br />
+    <button class="button2" dataid='success'>点击显示 success</button>
+    <br />
+    <br />
+    <button class="button2" dataid='busy'>点击显示 busy</button>
+    <br />
+    <br />
+    <button class="button2" dataid='fail'>点击显示 fail</button>
+    <br />
+    <br />
+    <button class="button2" dataid='error'>点击显示 error</button>
 
     </body>
-    <script type="text/javascript" src="http://apps.bdimg.com/libs/zepto/1.1.4/zepto.min.js"></script>
+    <script type="text/javascript" src="https://apps.bdimg.com/libs/zepto/1.1.4/zepto.min.js"></script>
     <script type="text/javascript" src="../dist/script/showToast.js"></script>
     <script type="text/javascript">
-    $(document).on('click', 'button', function(event) {
+    $(document).on('click', '.button1', function(event) {
         event.preventDefault();
         showToast.show({text:'这就是页面显示的文字喽',timer:2000})
     });
 
-    $(document).on('click', 'a', function(event) {
+    $(document).on('click', '.button2', function(event) {
+        var icon = $(this).attr('dataid')
         event.preventDefault();
-        showToastImg.show({text:'这就是有图标的喽这就是有图标的喽这就是有图标的喽这就是有图标的喽这就是有图标的喽',timer:2000,icon:'success'})
+        showToastImg.show({text:'这就是有图标的喽这就是有图标的喽这就是有图标的喽这就是有图标的喽这就是有图标的喽',timer:2000,icon:icon})
     });
     </script>
 </html>

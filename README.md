@@ -1,6 +1,8 @@
 # showToast
 showToast 是一款移动端的Toast控件，可以在移动端展示Toast效果。
 
+[Demo>>](https://rawgit.com/zoeblow/showToast/master/demo/index.html)
+
 ### 创建时间 2016-05-19 13:31
 #### 作者 [@zoeblow](http://fuyuan.me)
 ### 版本
@@ -25,6 +27,12 @@ showToast 是一款移动端的Toast控件，可以在移动端展示Toast效果
 > * V 1.3
 > * 修改时间 ：2016年10月31日15:02
 > * 描述：增加显示toast 有小图标的功能 修改若干现实bug,修改了传参方式
+
+------
+
+> * V 1.4
+> * 修改时间 ：2018年1月31日10:14
+> * 描述：更新demo
 
 -----
 ### Js代码
@@ -74,7 +82,7 @@ var showToast=(function(){
 ### 参数
 
 | 参数 | 取值类型 | 默认值 | 描述 |
-| :----:  | :----:  | :----:  | :----:  |
-| text    | String |   必输    | 页面上显示的文字  |
-| timer    | Number |   1500 |   滞留在页面上的时间 |
-| icon    | String |   null | 显示图标的样式,可为空 可选值为"success,fail,error,busy" |
+| :----: | :----: | :----: | :----: |
+| text | `String` | 必填 | 页面上显示的文字 |
+| timer | `Number` | `1500` | 滞留在页面上的时间 |
+| icon | `String` | `null` | 显示图标的样式,可为空 可选值为"success,fail,error,busy" |
