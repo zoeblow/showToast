@@ -3,7 +3,7 @@ showToast 是一款移动端的Toast控件，可以在移动端展示Toast效果
 
 ### 创建时间 2016-05-19 13:31
 #### 作者 [@zoeblow](http://fuyuan.me)
-###版本
+### 版本
 > * V 1.0
 > * 修改时间 ：2016-05-19 13:31
 > * 描述：创建showToast
@@ -55,7 +55,7 @@ var showToast=(function(){
 
 ```
 -----
-###调用方式
+### 调用方式
 在html中引入zepto/jquery之后引入showToast.js
 完成之后即可直接使用
 ```html
@@ -70,7 +70,8 @@ var showToast=(function(){
 </script>
 ```
 -----
-###参数
+
+### 参数
 
 | 参数 | 取值类型 | 默认值 | 描述 |
 | :----:  | :----:  | :----:  | :----:  |
